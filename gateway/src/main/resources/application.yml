@@ -1,0 +1,33 @@
+# 本地配置文件（可选）
+spring:
+  config:
+    import: nacos:gateway.yml
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER}
+      username: ${NACOS_USER}
+      password: ${NACOS_PASSWORD}
+      discovery:
+        enabled: true
+        group-name: DEFAULT_GROUP
+        namespace: dunmin
+        metadata:
+          version: 1.0
+      config:
+        enabled: true
+        file-extension: yml
+
+# 服务端口
+server:
+  port: 8080
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    com.dunmin.gateway: DEBUG
+
+

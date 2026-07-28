@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.dunmin.security.SecurityConfig,\
+com.dunmin.timezone.JacksonTimeZoneConfig,\
+com.dunmin.timezone.TimeZoneMvcConfig,\
+com.dunmin.cache.CacheConfig,\
+com.dunmin.interceptor.MyBatisConfig
