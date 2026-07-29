@@ -1,21 +1,18 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven'
+    }
 
     environment {
-        // 1. 绑定 Harbor 凭据（请替换为你在 Jenkins 中配置的凭据 ID）
-        // Jenkins 会自动生成 HARBOR_CREDS_USR 和 HARBOR_CREDS_PSW 变量
         HARBOR_CREDS = credentials('harbor')
 
-        // 2. 动态生成镜像 Tag（使用 Git Commit 的短哈希，确保每次构建唯一）
         IMAGE_TAG = "${BUILD_NUMBER}"
 
-        // 3. 拼接完整的镜像地址
-        // 注意：HARBOR_URL, HARBOR_PROJECT, APP_NAME 直接从全局环境变量中继承，无需在此重新定义
         FULL_IMAGE = "${HARBOR_URL}/${HARBOR_PROJECT}/${APP_NAME}:${IMAGE_TAG}"
     }
 
     stages {
-        // 阶段一：Maven 编译 gateway 子项目
         stage('Build Gateway') {
             steps {
                 echo "🚀 开始编译 gateway 子项目..."
@@ -23,7 +20,6 @@ pipeline {
             }
         }
 
-        // 阶段二：构建 Docker 镜像并推送到 Harbor
         stage('Build & Push Docker Image') {
             steps {
                 echo "🐳 开始构建并推送镜像: ${FULL_IMAGE}"
