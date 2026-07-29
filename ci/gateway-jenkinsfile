@@ -59,7 +59,9 @@ pipeline {
             echo "❌ 流水线执行失败，请检查控制台日志！"
         }
         always {
-            cleanWs()
+            node {
+                cleanWs()
+            }
         }
     }
 }
