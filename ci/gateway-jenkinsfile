@@ -1,11 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            // ✅ 使用官方推荐的、内置 Docker CLI 的 Maven 镜像
-            image 'maven:3.9.6-eclipse-temurin-21'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2:/root/.m2'
-        }
-    }
+    agent none
 
     environment {
         HARBOR_CREDS = credentials('harbor')
@@ -14,7 +8,14 @@ pipeline {
     }
 
     stages {
+
         stage('Build Gateway') {
+            agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-21'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2:/root/.m2'
+                }
+            }
             steps {
                 echo "🚀 开始编译 gateway 子项目..."
                 sh 'mvn clean package -pl gateway -am -DskipTests'
@@ -22,6 +23,12 @@ pipeline {
         }
 
         stage('Build & Push Docker Image') {
+            agent {
+                docker {
+                    image 'maven:3.9.6-eclipse-temurin-21'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2:/root/.m2'
+                }
+            }
             steps {
                 echo "🐳 开始构建并推送镜像: ${FULL_IMAGE}"
                 script {
