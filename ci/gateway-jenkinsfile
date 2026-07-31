@@ -4,6 +4,7 @@ pipeline {
         maven 'maven-3.9.16'  // 与全局工具配置中的名称一致
     }
     environment {
+        APP_NAME = "gateway"
         HARBOR_CREDS = credentials('harbor')
         IMAGE_TAG = "${BUILD_NUMBER}"
         FULL_IMAGE = "${HARBOR_URL}/${HARBOR_PROJECT}/${APP_NAME}:${IMAGE_TAG}"
