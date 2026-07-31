@@ -6,7 +6,7 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # 从 Jenkins 编译好的 target 目录复制 jar 包
-COPY target/*.jar app.jar
+COPY gateway/target/*.jar app.jar
 
 # 暴露端口 (根据你的 application.yml 配置修改)
 EXPOSE 8080
