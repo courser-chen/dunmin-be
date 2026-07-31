@@ -22,7 +22,7 @@ pipeline {
 
         stage('Build & Push Docker Image') {
             steps {
-                echo "🐳 开始构建并推送镜像: ${FULL_IMAGE}"
+                echo "🐳 开始构建并推送镜像: ${FULL_IMAGE} ${APP_NAME}"
                 script {
                     sh """
                         # 1. 复制 jar 包到当前目录（可选，根据你的 Dockerfile 上下文决定）
