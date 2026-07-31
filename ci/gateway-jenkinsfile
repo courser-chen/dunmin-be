@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    tools {
+        maven 'maven-3.9.16'  // 与全局工具配置中的名称一致
+    }
     environment {
         HARBOR_CREDS = credentials('harbor')
         IMAGE_TAG = "${BUILD_NUMBER}"
